@@ -20,4 +20,7 @@ public class Movie
 
     // define a property named Price of type decimal, which will be used to store the price of the movie.
     public decimal Price { get; set; }
+
+    //add a rating property to the Movie class, which will be used to store the rating of the movie.
+    public string? Rating { get; set; }
 }
