@@ -1,26 +1,33 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema; 
 using System;
-
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MvcMovie.Models;
 
 public class Movie
 {
     public int Id { get; set; }
+
+    [StringLength(60, MinimumLength = 3)]
+    [Required]
     public string? Title { get; set; }
 
-// set the display name for the ReleaseDate property to "Release Date" and specify that it should be treated as a date (without time) in the user interface.
     [Display(Name = "Release Date")]
     [DataType(DataType.Date)]
     public DateTime ReleaseDate { get; set; }
-    public string? Genre { get; set; }
-    // specify that the Price property should be stored in the database as a decimal with a precision of 18 and a scale of 2, which means it can store numbers with up to 18 digits in total, including 2 digits after the decimal point.
+
+    [Range(1, 100)]
+    [DataType(DataType.Currency)]
     [Column(TypeName = "decimal(18, 2)")]
+    public decimal Price { get; set; }    
 
-    // define a property named Price of type decimal, which will be used to store the price of the movie.
-    public decimal Price { get; set; }
+    [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$")]
+    [Required]
+    [StringLength(30)]
+    public string? Genre { get; set; }
 
-    //add a rating property to the Movie class, which will be used to store the rating of the movie.
+    [RegularExpression(@"^[A-Z]+[a-zA-Z0-9""'\s-]*$")]
+    [StringLength(5)]
+    [Required]
     public string? Rating { get; set; }
 }
